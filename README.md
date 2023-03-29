@@ -1,1 +1,1 @@
-This is my hobby project to create a pizza website with **Nextjs, Turborepo and Firebase**. I will try different integrations later down the line, **Stripe** for example 
+This is my hobby project to create a pizza website with **Nextjs, Turborepo and Firebase**. I will try different integrations later down the line, **Stripe** for example.

@@ -1,5 +1,5 @@
 {
-  "name": "PizzaOrder",
+  "name": "pizza-order",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
