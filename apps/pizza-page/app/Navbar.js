@@ -1,6 +1,6 @@
 import styles from "./navbar.module.css"
+import { ShoppingCart } from "./ShoppingCart"
 export async function Navbar(){
-
     return(
         <nav className={styles.main}>
             <div className={styles.navItem}>
@@ -12,6 +12,7 @@ export async function Navbar(){
             <div className={styles.navItem}>
                 <h1>Hello</h1>
             </div>
+            <ShoppingCart/>
         </nav>
     )
 }

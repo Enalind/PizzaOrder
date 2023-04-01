@@ -8,6 +8,16 @@
     background: linear-gradient(90deg, red, blue);
 }
 
-.navItem{
-
+.cart{
+    position: relative;
+}
+.cartItems{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color:blue;
+    white-space: nowrap;
+    padding: 20px;
 }
