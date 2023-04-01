@@ -1,0 +1,13 @@
+.main{
+    width: 100vw;
+    height: 7vh;
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    align-items: center;
+    background: linear-gradient(90deg, red, blue);
+}
+
+.navItem{
+
+}

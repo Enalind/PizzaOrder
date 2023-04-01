@@ -1,4 +1,5 @@
-
+import { Control } from "./controls"
+import styles from "./page.module.css"
 import { loadRestrictedStripe } from "../../../packages/stripe"
 
 async function click(stripe){
@@ -21,17 +22,20 @@ export default async function Home() {
   const url = await click(stripe)
   
   return (
-    <main>
-      {prices.data.map((price, i) => {
-        const product = price.product
-        return (
-          <div key={i}>
-            <p>{product.name}</p>
-            <p>{price.unit_amount/100} kr</p>
-          </div>
-        )
-      })}
-      <a href={url}>Checkout</a>
+    <main className={styles.main}>
+      <div className={styles.products}>
+        {prices.data.map((price, i) => {
+          const product = price.product
+          return (
+            <div key={i} className={styles.item}>
+              <p>{product.name}</p>
+              <p>{price.unit_amount/100} kr</p>
+              <Control productID={product.id}/>
+            </div>
+          )
+        })}
+      </div>
+      <a href={url} className={styles.checkout}>Checkout</a>
     </main>
   )
 }
