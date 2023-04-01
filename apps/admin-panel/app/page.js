@@ -1,91 +1,41 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+"use client";
 
-const inter = Inter({ subsets: ['latin'] })
+import { useState } from "react";
+import {loadStripe} from "../../../packages/stripe"
+
 
 export default function Home() {
+  const [prod, setProd] = useState({name: "", description: "", price: 0, succcsecc: false})
+  async function click(){
+    console.log(await fetch("/api/route"))
+    const stripe = await loadStripe()
+    const product = await stripe.products.create({
+      name: prod.name,
+      description: prod.description,
+    })
+    const price = await stripe.prices.create({
+      unit_amount_decimal: prod.price*100,
+      currency: "sek",
+      product: product.id
+    })
+    if(product !== null){
+      setProd({succcsecc: true})
+    }
+    console.log(prod)
+    
+  }
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <main>
+      <div>
+        <h1>Name</h1>
+        <input onChange={(e) => {setProd({name: e.currentTarget.value, description: prod.description, price: prod.price})}}/>
+        <h1>Description</h1>
+        <input onChange={(e) => {setProd({name: prod.name, description: e.currentTarget.value, price: prod.price})}}/>
+        <h1>Price</h1>
+        <input type="number" onChange={(e) => {setProd({name: prod.name, description: prod.description, price: e.currentTarget.value})}}/>
       </div>
+      <h1 onClick={() => click()}>Add prod {prod.succcsecc ? "done": ""}</h1>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
   )
 }
