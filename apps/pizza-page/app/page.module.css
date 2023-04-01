@@ -5,15 +5,26 @@
   
 }
 .products{
-  display: flex;
-  justify-content: space-around;
-  padding: 50vh 10vw 10vh;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  padding: 10vh 10vw 10vh;
   flex-direction: column;
   width: 30vw;
   height: 50vh;
   text-align: left;
   font-size: 30px;
   gap: 20px;
+  animation: fadeIn 1s;
+}
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+    padding-left: 0;
+  }
+  100%{
+    opacity: 1;
+    padding-left: 10vw;
+  }
 }
 .item{
   display: flex;
@@ -29,4 +40,8 @@
 .controls{
   display: flex;
   gap:20px
+}
+.description{
+  font-size: medium;
+  color: beige;
 }

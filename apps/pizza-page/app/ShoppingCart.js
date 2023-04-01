@@ -3,7 +3,8 @@ import styles from "./navbar.module.css"
 import {useRouter} from "next/navigation"
 import { useEffect, useState } from "react";
 import { loadRestrictedStripe } from "../../../packages/stripe";
-async function checkout(keys, router){
+import TimeKeeper from "react-timekeeper";
+async function checkout(keys, router, time){
     const stripe = await loadRestrictedStripe()
     var filteredKeys = keys.filter(key => localStorage.getItem(key) !== "0")
     const prices = filteredKeys.map(key => {
@@ -17,16 +18,19 @@ async function checkout(keys, router){
         "card",
         "klarna"
       ],
-      success_url: "http://localhost:3000"
+      success_url: "http://localhost:3000",
+      metadata: {
+        "time": time
+      }
     })
+    console.log(session)
     router.push(session.url)
 }
 export function ShoppingCart(){
     const router = useRouter()
     const [keys, setKeys] = useState([])
     const [cart, setCart] = useState(false)
-    
-
+    const [time, setTime] = useState("10:00")
     useEffect(() => {
         window.addEventListener("storage",() => {
             let testKeys = []
@@ -44,6 +48,8 @@ export function ShoppingCart(){
             }
         }
         setKeys(testKeys)
+        const bo = document.getElementsByClassName(styles.cartItem)
+        console.log(bo.length)
     }, [])
 
     if(cart){
@@ -59,7 +65,9 @@ export function ShoppingCart(){
                     }
                     
                 })}
-                <h1 onClick={() => checkout(keys, router)}>Checkout</h1>
+                <TimeKeeper time={time} onChange={(data) => setTime(data.formatted24)}/>
+                {<h1 onClick={() => checkout(keys, router, time)}>Checkout</h1>}
+                
             </div>
         </div>
     }

@@ -17,11 +17,12 @@ export default async function Home() {
         {prices.data.map((price, i) => {
           const product = price.product
           return (
-            <div key={i} className={styles.item}>
+            <>
               <p>{product.name}</p>
+              <p className={styles.description}>{product.description}</p>
               <p className={styles.price}>{price.unit_amount/100} kr</p>
               <Control productName={product.name} price={price.id}/>
-            </div>
+            </>
           )
         })}
       </div>
